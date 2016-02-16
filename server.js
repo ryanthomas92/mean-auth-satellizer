@@ -24,8 +24,6 @@ mongoose.connect('mongodb://localhost/angular_auth');
 
 // require User and Post models
 var User = require('./models/user');
-var Post = require('./models/post');
-
 
 /*
  * API Routes
@@ -107,7 +105,7 @@ app.post('/auth/login', function (req, res) {
 /*
  * Catch All Route
  */
-app.get(['/', '/signup', '/login', '/profile'], function (req, res) {
+app.get(['/', '/signup', '/login', '/logout', '/profile'], function (req, res) {
   res.render('index');
 });
 
