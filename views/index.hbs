@@ -33,6 +33,7 @@
 
   <title>Angular Auth</title>
 </head>
+<!-- Set the controller as main -->
 <body ng-controller="MainController as main">
   <nav class="navbar navbar-default">
     <div class="container">
@@ -50,6 +51,7 @@
           <li><a href="/">Home</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+          <!-- Sets what a current user can see and what a non user cant see -->
           <li ng-show="!main.currentUser()"><a ui-sref="signup">Sign Up</a></li>
           <li ng-show="!main.currentUser()"><a ui-sref="login">Log In</a></li>
           <li ng-show="main.currentUser()"><a ui-sref="profile">\{{main.currentUser().displayName}}</a></li>

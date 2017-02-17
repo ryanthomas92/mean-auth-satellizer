@@ -1,3 +1,4 @@
+// Connecting to angular, the controllers, services, and config routes
 angular
   .module('AuthSampleApp', [
     'ui.router'
@@ -30,6 +31,7 @@ function configRoutes($stateProvider, $urlRouterProvider, $locationProvider) {
   // for any unmatched URL redirect to /
   $urlRouterProvider.otherwise("/");
 
+  // Sets the paths or routes that your site will go to
   $stateProvider
     .state('home', {
       url: '/',
@@ -104,6 +106,7 @@ MainController.$inject = ["Account"]; // minification protection
 function MainController (Account) {
   var vm = this;
 
+  // returning a current user
   vm.currentUser = function() {
    return Account.currentUser();
   }
@@ -116,12 +119,14 @@ function HomeController ($http) {
   vm.posts = [];
   vm.new_post = {}; // form data
 
+  // get the posts information
   $http.get('/api/posts')
     .then(function (response) {
       vm.posts = response.data;
     });
 }
 
+// Function for logging in
 LoginController.$inject = ["Account"]; // minification protection
 function LoginController (Account) {
   var vm = this;
@@ -137,6 +142,7 @@ function LoginController (Account) {
   };
 }
 
+// Actually creates a new user
 SignupController.$inject = []; // minification protection
 function SignupController () {
   var vm = this;
@@ -154,13 +160,14 @@ function SignupController () {
   };
 }
 
+// Function for logging out
 LogoutController.$inject = ["Account"]; // minification protection
 function LogoutController (Account) {
   Account.logout()
   // TODO #7: when the logout succeeds, redirect to the login page
 }
 
-
+// function for creating a new profile, or updating a profile
 ProfileController.$inject = []; // minification protection
 function ProfileController () {
   var vm = this;
@@ -177,6 +184,7 @@ function ProfileController () {
 //////////////
 
 Account.$inject = ["$http", "$q", "$auth"]; // minification protection
+// Set the functionality of an account
 function Account($http, $q, $auth) {
   var self = this;
   self.user = null;
@@ -218,6 +226,7 @@ function Account($http, $q, $auth) {
     // returns a promise!!!
   }
 
+// determines the current user is authenticated 
   function currentUser() {
     if ( self.user ) { return self.user; }
     if ( !$auth.isAuthenticated() ) { return null; }
