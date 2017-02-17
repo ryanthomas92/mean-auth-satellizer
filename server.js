@@ -7,7 +7,7 @@ var express = require('express'),
     auth = require('./resources/auth');
 
 // require and load dotenv
-require('dotenv').load();
+// require('dotenv').load();
 
 // configure bodyParser (for receiving form data)
 app.use(bodyParser.urlencoded({ extended: true }));
