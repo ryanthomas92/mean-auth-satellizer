@@ -1,7 +1,7 @@
 // Connecting to angular, the controllers, services, and config routes
 angular
   .module('AuthSampleApp', [
-    'ui.router'
+    'ui.router', 'satellizer'
     // TODO #2: Add satellizer module
   ])
   .controller('MainController', MainController)
@@ -136,8 +136,11 @@ function LoginController (Account) {
     Account
       .login(vm.new_user)
       .then(function(){
+        vm.email = "";
+        vm.password= "";
          // TODO #4: clear sign up form
          // TODO #5: redirect to '/profile'
+         $state.go('profile');
       })
   };
 }
@@ -155,6 +158,7 @@ function SignupController () {
         function (response) {
           // TODO #9: clear sign up form
           // TODO #10: redirect to '/profile'
+          $location.path('/profile')
         }
       );
   };
@@ -209,6 +213,7 @@ function Account($http, $q, $auth) {
         .then(
           function onSuccess(response) {
             //TODO #3: set token (https://github.com/sahat/satellizer#authsettokentoken)
+            $auth.setToken(token)
           },
 
           function onError(error) {
@@ -226,7 +231,7 @@ function Account($http, $q, $auth) {
     // returns a promise!!!
   }
 
-// determines the current user is authenticated 
+// determines the current user is authenticated
   function currentUser() {
     if ( self.user ) { return self.user; }
     if ( !$auth.isAuthenticated() ) { return null; }
